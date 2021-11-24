@@ -2,6 +2,7 @@ import getpass
 
 
 def man(tries):
+    ##Display body of the stickman paying for the users wrong guesses
     if (tries == 0):
         print("  ._____\n"
             "  |     | \n"
@@ -69,6 +70,7 @@ def man(tries):
 
 
 def get_blanks(word):
+    #show lines and space for each letter to be guessed 
     game = []
     won = 0
     for i in word:
@@ -88,7 +90,7 @@ def disp(game):
 
 def play(word, attempt, game, to_win, tries):
     wrong = True
-    
+    #Put letter in if entered correctly
     for i in range(0, len(word)):
         if (word[i] == attempt):
             game[i] = word[i]
@@ -100,6 +102,7 @@ def play(word, attempt, game, to_win, tries):
 
 
 def check_winner(won, to_win, tries):
+    #did you win or not?
     if (tries == 7):
         print("GAME OVER. TRY AGAIN LATER!")
         return False
@@ -111,9 +114,12 @@ def check_winner(won, to_win, tries):
             
 
 def main():
+    #Keep prompting user for input until it recieves desired input
     while True:
         try:
             print("Enter a word for hangman")
+            #Removes the visibility of the Word being entered
+            #to retain purpose of the game
             word = str(getpass.getpass())
             word = word.upper()
         except:
@@ -126,6 +132,7 @@ def main():
     entries = []
     while check_winner(won, to_win, tries):
         disp(table)
+        #Keep prompting user for input until it recieves desired input
         while True:
             try:
                 attempt = input("Enter a letter: ")
@@ -133,6 +140,7 @@ def main():
                 if (len(attempt) > 1 or len(attempt) < 0):
                     raise Exception("Duplicate")
                 else:
+                    #To prevent user from inputing the same letter multiple times
                     for i in entries:
                         if (attempt == i):
                             print("Already Entered")
@@ -146,5 +154,6 @@ def main():
         disp(table)
         man(tries)
     disp(table)
+    print("Entry was " + word)
 
 main()
